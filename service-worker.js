@@ -7,9 +7,15 @@ const CORE_ASSETS = [
   "./manifest.json",
   "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
   "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+<<<<<<< HEAD
   "./quinta.geojson",
   "./icon-192.png",
   "./icon-512.png"
+=======
+  "./icon-192.png",
+  "./icon-512.png",
+  "./quinta.geojson"
+>>>>>>> cd2d245b0baed0dd7eeffa9cb3b0e48239084c07
 ];
 
 const AUDIO_URLS = [
