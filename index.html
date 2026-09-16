@@ -96,12 +96,16 @@
 </head>
 
 <body>
+  
+      
+    </div>
+  </div>
 
   <div id="map"></div>
 
   <p> 📍
     <!-- Google Maps Official (Fuerza caminar y añade todas las paradas en ruta sin fallar) -->
-    <a href="https://www.google.com/maps/dir/?api=1&origin=28.4259456,-16.4919159&destination=28.4259456,-16.4919159&waypoints=28.430514,-16.4870589%7C28.4307331,-16.4913284%7C28.431655,-16.4922505%7C28.4379028,-16.4927503%7C28.4370121,-16.4965031%7C28.4361456,-16.4963526%7C28.4318464,-16.4974412&travelmode=walking" 
+    <a href="https://www.google.com/maps/dir/?api=1&origin=28.4307331,-16.4913284&destination=28.4361456,-16.4963526&waypoints=28.431655,-16.4922505%7C28.4379028,-16.4927503%7C28.4370121,-16.4965031&travelmode=walking" 
        target="_blank">
        Google Maps route available
     </a>
@@ -123,29 +127,23 @@
   </div>
   
   <ul id="audio-list">
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/0.mp3">0. Intro: Following the Mencey's Trail</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/1.mp3">1. Plaza de Santa Úrsula and the Church of Santa Úrsula Mártir</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/2.mp3">2. Hacienda de San Clemente</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/3.mp3">3. La Giganta</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/4.mp3">4. Barranco de la Cruz</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/5.mp3">5. Mirador Callado Blanco</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/6.mp3">6. Bunker de Santa Úrsula</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/7.mp3">7. Mirador de La Quinta</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/8.mp3">8. Small Plaza del Mirador</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/9.mp3">9. Return to Plaza de Santa Úrsula</li>
+    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/0.mp3">0. A brief introduction to our route</li>
+    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/1.mp3">1. La Giganta – The Eternal Guardian</li>
+    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/2.mp3">2. Barranco de la Cruz – The Roads of War</li>
+    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/3.mp3">3. Mirador Callado Blanco – The Wandering Island</li>
+    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/4.mp3">4. Búnker de Santa Úrsula – The Voice of the Stones</li>
+    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/5.mp3">5. Mirador de La Quinta Roja – The Inner Kingdom</li>
   </ul>
 
   <audio id="audio-player" controls controlsList="nodownload"></audio>
 
   <script>
-    const map = L.map('map', {
-      attributionControl: false
-    }).setView([28.4312, -16.4925], 14); 
+    const map = L.map('map', { attributionControl: false }).setView([28.4340, -16.4940], 15); 
 
     L.tileLayer('./tiles/{z}/{x}/{y}.png', {
       minZoom: 11,
       maxZoom: 18,
-      maxNativeZoom: 17,
+      maxNativeZoom: 18,
       tileSize: 256
     }).addTo(map);
 
@@ -225,30 +223,58 @@
 
     let userMarker = null;
 
-    map.locate({
-      watch: true,
-      enableHighAccuracy: true,
-      maximumAge: 6000,
-      timeout: 10000
-    });
-
-    map.on('locationfound', e => {
+    function updatePosition(lat, lng) {
+      const latlng = [lat, lng];
       if (!userMarker) {
-        userMarker = L.circleMarker(e.latlng, {
+        userMarker = L.circleMarker(latlng, {
           radius: 8,
           color: "#007bff",
           fillColor: "#3fa0ff",
           fillOpacity: 0.8
         }).addTo(map);
       } else {
-        userMarker.setLatLng(e.latlng);
+        userMarker.setLatLng(latlng);
       }
-    });
+    }
+
+    if ("geolocation" in navigator) {
+      // 1. Instant coarse fix
+      navigator.geolocation.getCurrentPosition(
+        pos => updatePosition(pos.coords.latitude, pos.coords.longitude),
+        err => console.warn("[GPS Coarse]", err.message),
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 10000 }
+      );
+
+      // 2. Continuous real-time high-accuracy tracking
+      navigator.geolocation.watchPosition(
+        pos => updatePosition(pos.coords.latitude, pos.coords.longitude),
+        err => console.warn("[GPS Watch]", err.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 6000 }
+      );
+    }
   </script>
 
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./service-worker.js");
+      navigator.serviceWorker.register("./service-worker.js").then(reg => {
+        if (reg.waiting) {
+          reg.waiting.postMessage({ type: "SKIP_WAITING" });
+        }
+      });
+
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
+                        || window.navigator.standalone === true 
+                        || document.referrer.includes('android-app://');
+
+      if (isStandalone) {
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
+      }
     }
   </script>
   <script>
@@ -259,5 +285,6 @@
       document.getElementById('android-msg').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
