@@ -33,12 +33,16 @@
     }
 
     /* Action Buttons (Pill Style) */
-    .action-bar {
-      display: flex;
-      gap: 10px;
-      padding: 12px 15px;
+    .action-bar-wrapper {
       background: #f8f9fa;
       border-bottom: 1px solid #e9ecef;
+      padding: 12px 15px;
+    }
+    .action-bar {
+      display: flex;
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto;
     }
     .action-btn {
       flex: 1;
@@ -46,29 +50,27 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 10px 12px;
-      background: #ffffff;
-      color: #2c3e50;
+      padding: 10px 14px;
+      background: #eef2f6;
+      color: #1e293b;
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
       border-radius: 25px;
-      border: 1px solid #e0e0e0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
       transition: all 0.2s ease;
       text-align: center;
     }
     .action-btn:active {
       transform: scale(0.97);
-      background: #f0f4f8;
+      background: #cbd5e1;
     }
     .action-btn small {
       font-weight: 400;
-      color: #7f8c8d;
+      color: #64748b;
       font-size: 11px;
     }
-    .maps-btn { border-left: 3px solid #4285f4; }
-    .tips-btn { border-left: 3px solid #34a853; }
   </style>
 
 <!-- ========================================== -->
@@ -141,18 +143,20 @@
 
   <div id="map"></div>
 
-  <div class="action-bar">
-    <!-- Google Maps Official -->
-    <a href="https://www.google.com/maps/dir/?api=1&origin=28.4307331,-16.4913284&destination=28.4361456,-16.4963526&waypoints=28.431655,-16.4922505%7C28.4379028,-16.4927503%7C28.4370121,-16.4965031&travelmode=walking" 
-       target="_blank" class="action-btn maps-btn">
-      <span>📍</span>
-      <span>Google Maps <small>(Data required)</small></span>
-    </a>
+  <div class="action-bar-wrapper">
+    <div class="action-bar">
+      <!-- Google Maps Official -->
+      <a href="https://www.google.com/maps/dir/?api=1&origin=28.4307331,-16.4913284&destination=28.4361456,-16.4963526&waypoints=28.431655,-16.4922505%7C28.4379028,-16.4927503%7C28.4370121,-16.4965031&travelmode=walking" 
+         target="_blank" class="action-btn">
+        <span>📍</span>
+        <span>Google Maps <small>(Data required)</small></span>
+      </a>
 
-    <a href="EN-LA-QUINTA.html" target="_blank" class="action-btn tips-btn">
-      <span>⭐️</span>
-      <span>Key Tips</span>
-    </a>
+      <a href="EN-LA-QUINTA.html" target="_blank" class="action-btn">
+        <span>⭐️</span>
+        <span>Key Tips</span>
+      </a>
+    </div>
   </div>
 
   <div id="android-msg" style="display:none; padding: 10px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 5px; margin: 10px;">
