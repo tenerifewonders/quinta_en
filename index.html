@@ -31,6 +31,44 @@
       filter: hue-rotate(140deg) saturate(2.5) brightness(0.9) !important;
       z-index: 1000 !important;
     }
+
+    /* Action Buttons (Pill Style) */
+    .action-bar {
+      display: flex;
+      gap: 10px;
+      padding: 12px 15px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .action-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 12px;
+      background: #ffffff;
+      color: #2c3e50;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .action-btn:active {
+      transform: scale(0.97);
+      background: #f0f4f8;
+    }
+    .action-btn small {
+      font-weight: 400;
+      color: #7f8c8d;
+      font-size: 11px;
+    }
+    .maps-btn { border-left: 3px solid #4285f4; }
+    .tips-btn { border-left: 3px solid #34a853; }
   </style>
 
 <!-- ========================================== -->
@@ -103,20 +141,19 @@
 
   <div id="map"></div>
 
-  <p> 📍
-    <!-- Google Maps Official (Fuerza caminar y añade todas las paradas en ruta sin fallar) -->
+  <div class="action-bar">
+    <!-- Google Maps Official -->
     <a href="https://www.google.com/maps/dir/?api=1&origin=28.4307331,-16.4913284&destination=28.4361456,-16.4963526&waypoints=28.431655,-16.4922505%7C28.4379028,-16.4927503%7C28.4370121,-16.4965031&travelmode=walking" 
-       target="_blank">
-       Google Maps route available
+       target="_blank" class="action-btn maps-btn">
+      <span>📍</span>
+      <span>Google Maps <small>(Data required)</small></span>
     </a>
-    <span>(data connection required)</span>
-  </p>
 
-  <p> 📄
-    <a href="EN-LA-QUINTA.html" target="_blank">
-       Opening hours and practical tips
+    <a href="EN-LA-QUINTA.html" target="_blank" class="action-btn tips-btn">
+      <span>⭐️</span>
+      <span>Key Tips</span>
     </a>
-  </p>
+  </div>
 
   <div id="android-msg" style="display:none; padding: 10px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 5px; margin: 10px;">
     ➕ <strong> To install the app on Android and use it offline: Click browser menu (three dots) → Add to Home screen / Install</strong>
