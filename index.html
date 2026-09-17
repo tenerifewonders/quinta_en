@@ -42,7 +42,7 @@
       display: flex;
       gap: 12px;
       max-width: 520px;
-      margin: 0 auto;
+      margin: 0;
     }
     .action-btn {
       flex: 1;
@@ -62,15 +62,21 @@
       transition: all 0.2s ease;
       text-align: center;
     }
+    .action-btn:hover {
+      background: #f0f0f0;
+      border-color: #cbd5e1;
+    }
     .action-btn:active {
       transform: scale(0.97);
-      background: #cbd5e1;
+      background: #dbe2ea;
     }
     .action-btn small {
       font-weight: 400;
       color: #64748b;
       font-size: 11px;
     }
+    .maps-btn { border-left: 3px solid #4285f4; }
+    .tips-btn { border-left: 3px solid #f59e0b; }
   </style>
 
 <!-- ========================================== -->
@@ -147,12 +153,12 @@
     <div class="action-bar">
       <!-- Google Maps Official -->
       <a href="https://www.google.com/maps/dir/?api=1&origin=28.4307331,-16.4913284&destination=28.4361456,-16.4963526&waypoints=28.431655,-16.4922505%7C28.4379028,-16.4927503%7C28.4370121,-16.4965031&travelmode=walking" 
-         target="_blank" class="action-btn">
+         target="_blank" class="action-btn maps-btn">
         <span>📍</span>
         <span>Google Maps <small>(Data required)</small></span>
       </a>
 
-      <a href="EN-LA-QUINTA.html" target="_blank" class="action-btn">
+      <a href="EN-LA-QUINTA.html" target="_blank" class="action-btn tips-btn">
         <span>⭐️</span>
         <span>Key Tips</span>
       </a>
