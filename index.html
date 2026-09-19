@@ -17,14 +17,167 @@
   <style>
     body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
     #map { height: 50vh; width: 100%; }
-    #audio-list { padding: 15px; list-style: none; margin: 0; }
-    #audio-list li { padding: 12px; border-bottom: 1px solid #ddd; cursor: pointer; transition: all 0.2s ease; }
-    #audio-list li:hover { background: #f0f0f0; }
+    /* Base Audio List Container */
+    #audio-list {
+      padding: 15px;
+      list-style: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 600px;
+    }
+    #audio-list li {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    /* Active Track Highlight */
     #audio-list li.active-track {
-      background: #e3f2fd;
-      border-left: 5px solid #007bff;
+      background: #e0f2fe !important;
+      border-left: 5px solid #0284c7 !important;
+    }
+
+    /* OPTION 1: Spotify / App Playlist Style */
+    .track-opt1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .track-opt1:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .track-opt1 .track-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 14px;
+    }
+    .track-opt1 .play-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #eff6ff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .track-opt1 .track-arrow {
+      color: #94a3b8;
+      font-size: 16px;
+    }
+
+    /* OPTION 2: Numbered Badge with Subtitle */
+    .track-opt2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+    .track-opt2:hover { background: #f8fafc; }
+    .track-opt2 .num-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #3b82f6;
+      color: #ffffff;
       font-weight: bold;
-      color: #0056b3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .track-opt2 .track-details {
+      flex: 1;
+      margin-left: 12px;
+    }
+    .track-opt2 .track-title {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 14px;
+    }
+    .track-opt2 .track-sub {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* OPTION 3: Floating Elevated Card */
+    .track-opt3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid #f1f5f9;
+    }
+    .track-opt3:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .track-opt3 .track-title {
+      font-weight: 600;
+      color: #0f172a;
+      font-size: 14px;
+    }
+    .track-opt3 .play-btn-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* OPTION 4: Dark Accent Card */
+    .track-opt4 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #1e293b;
+      color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .track-opt4:hover {
+      background: #0f172a;
+    }
+    .track-opt4 .track-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: #f8fafc;
+    }
+    .track-opt4 .gold-badge {
+      background: #f59e0b;
+      color: #1e293b;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 11px;
+      font-weight: bold;
+      flex-shrink: 0;
     }
     #audio-player { width: 100%; position: fixed; bottom: 0; left: 0; z-index: 9999; }
     .marker-active {
@@ -240,12 +393,53 @@
   </details>
   
   <ul id="audio-list">
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/0.mp3">0. A brief introduction to our route</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/1.mp3">1. La Giganta – The Eternal Guardian</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/2.mp3">2. Barranco de la Cruz – The Roads of War</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/3.mp3">3. Mirador Callado Blanco – The Wandering Island</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/4.mp3">4. Búnker de Santa Úrsula – The Voice of the Stones</li>
-    <li data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/5.mp3">5. Mirador de La Quinta Roja – The Inner Kingdom</li>
+    <!-- Pistas 0 y 1: OPCIÓN 1 (Estilo Playlist / Spotify) -->
+    <li class="track-opt1" data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/0.mp3">
+      <div class="track-left">
+        <span class="play-badge">▶</span>
+        <span>0. A brief introduction to our route</span>
+      </div>
+      <span class="track-arrow">›</span>
+    </li>
+
+    <li class="track-opt1" data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/1.mp3">
+      <div class="track-left">
+        <span class="play-badge">▶</span>
+        <span>1. La Giganta – The Eternal Guardian</span>
+      </div>
+      <span class="track-arrow">›</span>
+    </li>
+
+    <!-- Pista 2: OPCIÓN 2 (Numeral con Badge y Subtítulo) -->
+    <li class="track-opt2" data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/2.mp3">
+      <span class="num-badge">02</span>
+      <div class="track-details">
+        <div class="track-title">Barranco de la Cruz – The Roads of War</div>
+        <div class="track-sub">Tap to listen • Audio guide</div>
+      </div>
+      <span class="track-arrow" style="color:#64748b;">▶</span>
+    </li>
+
+    <!-- Pista 3: OPCIÓN 3 (Tarjeta Flotante con Elevación) -->
+    <li class="track-opt3" data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/3.mp3">
+      <span class="track-title">3. Mirador Callado Blanco – The Wandering Island</span>
+      <span class="play-btn-circle">▶</span>
+    </li>
+
+    <!-- Pista 4: OPCIÓN 4 (Fondo Oscuro Premium) -->
+    <li class="track-opt4" data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/4.mp3">
+      <span class="track-title">4. Búnker de Santa Úrsula – The Voice of the Stones</span>
+      <span class="gold-badge">PLAY ▶</span>
+    </li>
+
+    <!-- Pista 5: OPCIÓN 1 (Spotify repetido para comparar) -->
+    <li class="track-opt1" data-audio="https://xzymbvnljudyypdyuisf.supabase.co/storage/v1/object/public/quinta_en/5.mp3">
+      <div class="track-left">
+        <span class="play-badge">▶</span>
+        <span>5. Mirador de La Quinta Roja – The Inner Kingdom</span>
+      </div>
+      <span class="track-arrow">›</span>
+    </li>
   </ul>
 
   <audio id="audio-player" controls controlsList="nodownload"></audio>
