@@ -121,7 +121,13 @@
       font-weight: 400;
       font-size: 12px;
       color: #64748b;
-      line-height: 1.4;
+      line-height: 1.5;
+    }
+    .install-banner .install-steps div {
+      margin-bottom: 4px;
+    }
+    .install-banner .install-steps div:last-child {
+      margin-bottom: 0;
     }
   </style>
 
@@ -213,21 +219,23 @@
 
   <details id="android-msg" class="install-banner" style="display:none;">
     <summary>
-      <span>📲 Offline installation</span>
+      <span>ℹ️ Offline installation</span>
       <span class="plus-icon">➕</span>
     </summary>
     <div class="install-steps">
-      Click browser menu (three dots) ➔ Add to Home screen / Install
+      <div>Open browser menu ( ⁝ 3 dots at top right)</div>
+      <div>Select "Add to Home screen" or "Install"</div>
     </div>
   </details>
 
   <details id="ios-msg" class="install-banner" style="display:none;">
     <summary>
-      <span>📲 Offline installation</span>
+      <span>ℹ️ Offline installation</span>
       <span class="plus-icon">➕</span>
     </summary>
     <div class="install-steps">
-      Tap Share button (share icon) ➔ Add to Home Screen
+      <div>Tap Share button ( ⎋ box with arrow)</div>
+      <div>Scroll & select "Add to Home Screen"</div>
     </div>
   </details>
   
