@@ -282,6 +282,19 @@
     .install-banner .install-steps div:last-child {
       margin-bottom: 0;
     }
+
+    /* PRUEBAS DE COLOR TEMPORALES */
+    .install-opt1 { background: #fffdf0; border-color: #fef08a; color: #713f12; }
+    .install-opt1 summary { color: #713f12; }
+
+    .install-opt2 { background: #fffbe6; border-color: #ffe58f; color: #593800; }
+    .install-opt2 summary { color: #593800; }
+
+    .install-opt3 { background: #fffbeb; border-color: #fef3c7; color: #92400e; }
+    .install-opt3 summary { color: #92400e; }
+
+    .install-opt4 { background: #fff9db; border-color: #ffe066; color: #664d00; }
+    .install-opt4 summary { color: #664d00; }
   </style>
 
 <!-- ========================================== -->
@@ -370,10 +383,11 @@
     </div>
   </div>
 
-  <details id="android-msg" class="install-banner" style="display:none;">
+  <!-- PRUEBA TEMPORAL: Opción 1 (Crema Vainilla) -->
+  <details class="install-banner install-opt1" style="display:block;">
     <summary>
       <span class="plus-icon">➕</span>
-      <span>Offline installation</span>
+      <span>Offline installation (Opción 1 - Crema Vainilla)</span>
     </summary>
     <div class="install-steps">
       <div>Open browser menu ( ⁝ 3 dots at top right)</div>
@@ -381,14 +395,39 @@
     </div>
   </details>
 
-  <details id="ios-msg" class="install-banner" style="display:none;">
+  <!-- PRUEBA TEMPORAL: Opción 2 (Mantequilla Pastel) -->
+  <details class="install-banner install-opt2" style="display:block;">
     <summary>
       <span class="plus-icon">➕</span>
-      <span>Offline installation</span>
+      <span>Offline installation (Opción 2 - Mantequilla Pastel)</span>
     </summary>
     <div class="install-steps">
-      <div>Tap Share button ( ⎋ box with arrow)</div>
-      <div>Scroll & select "Add to Home Screen"</div>
+      <div>Open browser menu ( ⁝ 3 dots at top right)</div>
+      <div>Select "Add to Home screen" or "Install"</div>
+    </div>
+  </details>
+
+  <!-- PRUEBA TEMPORAL: Opción 3 (Sol Nube) -->
+  <details class="install-banner install-opt3" style="display:block;">
+    <summary>
+      <span class="plus-icon">➕</span>
+      <span>Offline installation (Opción 3 - Sol Nube)</span>
+    </summary>
+    <div class="install-steps">
+      <div>Open browser menu ( ⁝ 3 dots at top right)</div>
+      <div>Select "Add to Home screen" or "Install"</div>
+    </div>
+  </details>
+
+  <!-- PRUEBA TEMPORAL: Opción 4 (Ámbar Suave) -->
+  <details class="install-banner install-opt4" style="display:block;">
+    <summary>
+      <span class="plus-icon">➕</span>
+      <span>Offline installation (Opción 4 - Ámbar Suave)</span>
+    </summary>
+    <div class="install-steps">
+      <div>Open browser menu ( ⁝ 3 dots at top right)</div>
+      <div>Select "Add to Home screen" or "Install"</div>
     </div>
   </details>
   
